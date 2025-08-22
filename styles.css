@@ -3,9 +3,13 @@
     width: 600px;
     height: 600px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
     grid-template-rows: repeat(auto-fit, 200px);
     outline: 4px solid black;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
 }
 
 .box {

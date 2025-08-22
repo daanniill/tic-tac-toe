@@ -3,6 +3,7 @@ let mark = 'X'
 const Game = (function(mark) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
     let computerMark;
+    let curPlayer = mark;
 
     if (mark === 'X') {
         computerMark = 'O'
@@ -44,6 +45,8 @@ const Game = (function(mark) {
                         gameBoard[i][j] = curMark
                     }
                     displayBoard()
+                    curPlayer = computerMark;
+                    compMove()
                     console.log(gameBoard)
                 })
             });
@@ -51,16 +54,40 @@ const Game = (function(mark) {
     };
 
     const compMove = () => {
-        
+        let bestScore = -Infinity;
+        let bestMove;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++)
+            {
+                if (gameBoard[i][j] == '') {
+                    gameBoard[i][j] = computerMark
+                    let score = minimax(gameBoard)
+                    gameBoard[i][j] = ''
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = {i, j}
+                    }
+                }
+            }
+        }
+        gameBoard[bestMove.i][bestMove.j] = computerMark;
+        curPlayer = mark;
+    }
+
+    function minimax(board) {
+        return 1;
     }
 
     const runGame = () => {
         createBoard()
-        humanMove(mark)
-
+        if (curPlayer === mark) {
+            humanMove(mark);
+            curPlayer = computerMark;
+            compMove();
+        }
     };
 
-    return {gameBoard, createBoard, displayBoard, humanMove, runGame}
+    return {runGame}
 
 })(mark);
 

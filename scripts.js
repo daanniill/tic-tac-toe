@@ -1,5 +1,15 @@
-const Game = (function() {
-    let board = [...Array(3).map(e => Array(3).fill(''))]
+let mark = 'X'
+
+const Game = (function(mark) {
+    let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
+    let computerMark;
+
+    if (mark === 'X') {
+        computerMark = 'O'
+    }
+    else {
+        computerMark = 'X'
+    }
 
     const createBoard = () => {
         const board = document.querySelector(".board")
@@ -16,21 +26,42 @@ const Game = (function() {
         }
     };
 
-    const displayControl = () => {
+    const displayBoard = () => {
+        const board = document.querySelectorAll(".row")
+        board.forEach((row, i) => {
+            row.querySelectorAll(".box").forEach((box, j) => {
+                box.innerHTML = gameBoard[i][j]
+            });
+        });
+    }
+
+    const humanMove = (curMark) => {
         const board = document.querySelectorAll(".row")
         board.forEach((row, i) => {
             row.querySelectorAll(".box").forEach((box, j) => {
                 box.addEventListener('click', () => {
-                    box.innerHTML = 'X'
-                    console.log(`${i}, ${j}`)
+                    if (gameBoard[i][j] ==='') {
+                        gameBoard[i][j] = curMark
+                    }
+                    displayBoard()
+                    console.log(gameBoard)
                 })
             });
         });
     };
 
-    return {board, createBoard, displayControl}
+    const compMove = () => {
+        
+    }
 
-})();
+    const runGame = () => {
+        createBoard()
+        humanMove(mark)
 
-Game.createBoard()
-Game.displayControl()
+    };
+
+    return {gameBoard, createBoard, displayBoard, humanMove, runGame}
+
+})(mark);
+
+Game.runGame()

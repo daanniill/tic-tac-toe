@@ -17,11 +17,20 @@ const Game = (function() {
     };
 
     const displayControl = () => {
-        
+        const board = document.querySelectorAll(".row")
+        board.forEach((row, i) => {
+            row.querySelectorAll(".box").forEach((box, j) => {
+                box.addEventListener('click', () => {
+                    box.innerHTML = 'X'
+                    console.log(`${i}, ${j}`)
+                })
+            });
+        });
     };
 
-    return {board, createBoard}
+    return {board, createBoard, displayControl}
 
 })();
 
 Game.createBoard()
+Game.displayControl()

@@ -41,13 +41,15 @@ const Game = (function(mark) {
         board.forEach((row, i) => {
             row.querySelectorAll(".box").forEach((box, j) => {
                 box.addEventListener('click', () => {
-                    if (gameBoard[i][j] ==='') {
-                        gameBoard[i][j] = curMark
+                    if (gameBoard[i][j] === '' && curPlayer === mark) {
+                        gameBoard[i][j] = curMark;
+                        displayBoard();
+                        console.log(gameBoard)
+
+                        // Switch turn to computer
+                        curPlayer = computerMark;
+                        compMove();
                     }
-                    displayBoard()
-                    curPlayer = computerMark;
-                    compMove()
-                    console.log(gameBoard)
                 })
             });
         });
@@ -55,36 +57,79 @@ const Game = (function(mark) {
 
     const compMove = () => {
         let bestScore = -Infinity;
-        let bestMove;
+        let move;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++)
             {
-                if (gameBoard[i][j] == '') {
+                if (gameBoard[i][j] === '') {
                     gameBoard[i][j] = computerMark
                     let score = minimax(gameBoard)
                     gameBoard[i][j] = ''
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMove = {i, j}
+                        move = {i, j}
                     }
                 }
             }
         }
-        gameBoard[bestMove.i][bestMove.j] = computerMark;
-        curPlayer = mark;
+        if (move) {
+            gameBoard[move.i][move.j] = computerMark;
+            curPlayer = mark; // give turn back to human
+            displayBoard();
+        }
     }
 
     function minimax(board) {
+        let result = checkWinner()
+        console.log(result)
         return 1;
     }
 
-    const runGame = () => {
-        createBoard()
-        if (curPlayer === mark) {
-            humanMove(mark);
-            curPlayer = computerMark;
-            compMove();
+    function checkWinner() {
+        let winner = null;
+
+        // horizontal check
+        for (let i = 0; i < 3; i++) {
+            if (gameBoard[i][0] === gameBoard[i][1] && gameBoard[i][1] === gameBoard[i][2]) {
+                winner = gameBoard[i][0]
+            }
         }
+
+        // vertical check
+        for (let i = 0; i < 3; i++) {
+            if (gameBoard[0][i] === gameBoard[1][i] && gameBoard[1][i] === gameBoard[2][i]) {
+                winner = gameBoard[0][i]
+            }
+        }
+
+        // diagonal check
+        if (gameBoard[0][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[2][2]) {
+            winner = gameBoard[0][0]
+        }
+        if (gameBoard[2][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[0][2]) {
+            winner = gameBoard[2][0]
+        }
+
+        let openSpots = 0;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (gameBoard[i][j] == '') {
+                    openSpots++;
+                }
+            }
+        }
+
+        if (winner == null && openSpots == 0) {
+            return 'tie';
+        } else {
+            return winner;
+        }
+    }
+
+    const runGame = () => {
+        createBoard();
+        humanMove(mark);
+        displayBoard();
     };
 
     return {runGame}

@@ -2,9 +2,14 @@ let mark = 'X'
 
 const Game = (function(mark) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
-    let computerMark;
     let curPlayer = mark;
-
+    let humanMark = mark;
+    let computerMark = (mark === 'X') ? 'O' : 'X';
+    let scores = {
+        [computerMark]: 10,
+        [humanMark]: -10,
+        tie: 0
+    };
     if (mark === 'X') {
         computerMark = 'O'
     }
@@ -63,7 +68,7 @@ const Game = (function(mark) {
             {
                 if (gameBoard[i][j] === '') {
                     gameBoard[i][j] = computerMark
-                    let score = minimax(gameBoard)
+                    let score = minimax(gameBoard, 0, false)
                     gameBoard[i][j] = ''
                     if (score > bestScore) {
                         bestScore = score;
@@ -79,50 +84,89 @@ const Game = (function(mark) {
         }
     }
 
-    function minimax(board) {
-        let result = checkWinner()
-        console.log(result)
-        return 1;
+
+    function minimax(board, depth, isMaximizing) {
+        let result = checkWinner(board)
+        if (result !== null) {
+            console.log(result)
+            return scores[result]
+        }
+        if (isMaximizing) {
+            let bestScore = -Infinity;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++)
+                {
+                    if (board[i][j] === '') {
+                        board[i][j] = computerMark
+                        let score = minimax(board, depth + 1, false)
+                        board[i][j] = ''
+                        bestScore = Math.max(score, bestScore)
+                    }
+                }
+            }
+            return bestScore;  
+        }
+        else {
+            let bestScore = Infinity;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++)
+                {
+                    if (board[i][j] === '') {
+                        board[i][j] = humanMark
+                        let score = minimax(board, depth + 1, true)
+                        board[i][j] = ''
+                        bestScore = Math.min(score, bestScore)
+                    }
+                }
+            }
+            return bestScore;
+        }
     }
 
-    function checkWinner() {
-        let winner = null;
-
+    function checkWinner(board) {
         // horizontal check
         for (let i = 0; i < 3; i++) {
-            if (gameBoard[i][0] === gameBoard[i][1] && gameBoard[i][1] === gameBoard[i][2]) {
-                winner = gameBoard[i][0]
+            if (board[i][0] !== '' &&
+                board[i][0] === board[i][1] && 
+                board[i][1] === board[i][2]) {
+                return board[i][0]
             }
         }
 
         // vertical check
         for (let i = 0; i < 3; i++) {
-            if (gameBoard[0][i] === gameBoard[1][i] && gameBoard[1][i] === gameBoard[2][i]) {
-                winner = gameBoard[0][i]
+            if (board[0][i] !== '' &&
+                board[0][i] === board[1][i] && 
+                board[1][i] === board[2][i]) {
+                return board[0][i]
             }
         }
 
         // diagonal check
-        if (gameBoard[0][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[2][2]) {
-            winner = gameBoard[0][0]
+        if (board[0][0] !== '' &&
+            board[0][0] === board[1][1] && 
+            board[1][1] === board[2][2]) {
+            return board[0][0]
         }
-        if (gameBoard[2][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[0][2]) {
-            winner = gameBoard[2][0]
+        if (board[2][0] !== '' &&
+            board[2][0] === board[1][1] 
+            && board[1][1] === board[0][2]) {
+            return board[2][0]
         }
 
         let openSpots = 0;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (gameBoard[i][j] == '') {
+                if (board[i][j] == '') {
                     openSpots++;
                 }
             }
         }
 
-        if (winner == null && openSpots == 0) {
+        if (openSpots === 0) {
             return 'tie';
         } else {
-            return winner;
+            return null;
         }
     }
 

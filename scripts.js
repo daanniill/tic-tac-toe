@@ -51,6 +51,11 @@ const Game = (function(mark) {
                         displayBoard();
                         console.log(gameBoard)
 
+                        let res = checkWinner(gameBoard)
+                        if (res){
+                            displayWinner(res)
+                        }
+
                         // Switch turn to computer
                         curPlayer = computerMark;
                         compMove();
@@ -79,6 +84,10 @@ const Game = (function(mark) {
         }
         if (move) {
             gameBoard[move.i][move.j] = computerMark;
+            let res = checkWinner(gameBoard)
+            if (res){
+                displayWinner(res)
+            }
             curPlayer = mark; // give turn back to human
             displayBoard();
         }
@@ -88,7 +97,6 @@ const Game = (function(mark) {
     function minimax(board, depth, isMaximizing) {
         let result = checkWinner(board)
         if (result !== null) {
-            console.log(result)
             return scores[result]
         }
         if (isMaximizing) {
@@ -154,6 +162,8 @@ const Game = (function(mark) {
             return board[2][0]
         }
 
+
+        // checks if the board is filled
         let openSpots = 0;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
@@ -168,6 +178,17 @@ const Game = (function(mark) {
         } else {
             return null;
         }
+    }
+
+    const displayWinner = (winner) => {
+        let winMsg = document.createElement('div');
+        winMsg.setAttribute("class", "win-message");
+        if (winner === 'tie') {
+            winMsg.innerHTML = "It's a tie!";
+        } else {
+            winMsg.innerHTML = `${winner} has won!`;
+        }
+        document.querySelector("body").appendChild(winMsg);
     }
 
     const runGame = () => {

@@ -1,17 +1,33 @@
+/* BODY */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Jersey 25", sans-serif;
+}
+
 /* GAME BOARD */
 .board {
-    width: 600px;
-    height: 600px;
+    width: 450px;
+    height: 450px;
     display: grid;
-    grid-template-rows: repeat(auto-fit, 200px);
+    grid-template-rows: repeat(auto-fit, 150px);
     outline: 4px solid black;
 }
 
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 150px);
 }
 
 .box {
+    font-family: sans-serif;
+    font-weight: bolder;
     outline: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
 }

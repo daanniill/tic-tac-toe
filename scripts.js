@@ -1,6 +1,6 @@
 let mark = 'X'
 // three game states: human, ai_1 (random), ai_2 (minimax)
-let state = 'ai_1'
+let state = 'ai_2'
 
 const Game = (function(mark, state) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
@@ -201,8 +201,7 @@ const Game = (function(mark, state) {
     }
 
     const displayWinner = (winner) => {
-        let winMsg = document.createElement('div');
-        winMsg.setAttribute("class", "win-message");
+        let winMsg = document.querySelector('.results');
         if (winner === 'tie') {
             winMsg.innerHTML = "It's a tie!";
         } else {

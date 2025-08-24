@@ -1,6 +1,6 @@
 let mark = 'X'
 // three game states: human, ai_1 (random), ai_2 (minimax)
-let state = 'ai_2'
+let state = 'ai_1'
 
 const Game = (function(mark, state) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
@@ -24,13 +24,21 @@ const Game = (function(mark, state) {
         for (let i = 0; i < 3; i++) {
             let row = document.createElement("div")
             row.setAttribute("class", "row")
+            board.appendChild(row)
             for (let j = 0; j < 3; j++)
             {
                 let box = document.createElement("div")
+                // calculate a delay based on the box index
+                let delay = (i * 3 + j) * 300; // 300ms stagger per box
                 box.setAttribute("class", "box")
+                box.style.animationName = 'box'
+                box.style.animationDuration = '1s'
+                box.style.animationFillMode = "forwards";
+                box.style.animationDelay = `${delay}ms`;
+                
                 row.appendChild(box)
             }
-            board.appendChild(row)
+            
         }
     };
 

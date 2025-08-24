@@ -10,6 +10,18 @@
   to{border-right-color: transparent;}
 }
 
+/* box anims */
+@keyframes box {
+    from{ 
+        transform: translateX(-80px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0px);
+        opacity: 100;
+    }
+}
+
 /* BODY */
 body {
     height: 100vh;
@@ -26,7 +38,6 @@ body {
     height: 450px;
     display: grid;
     grid-template-rows: repeat(auto-fit, 150px);
-    outline: 4px solid black;
 }
 
 .row {
@@ -37,6 +48,7 @@ body {
 .box {
     font-family: sans-serif;
     font-weight: bolder;
+    opacity: 0;
     outline: 2px solid black;
     display: flex;
     justify-content: center;

@@ -53,12 +53,14 @@ const Game = (function(mark) {
 
                         let res = checkWinner(gameBoard)
                         if (res){
+                            curPlayer = null
                             displayWinner(res)
                         }
-
-                        // Switch turn to computer
-                        curPlayer = computerMark;
-                        compMove();
+                        else {
+                            // Switch turn to computer
+                            curPlayer = computerMark;
+                            compMove();
+                        }
                     }
                 })
             });
@@ -87,8 +89,11 @@ const Game = (function(mark) {
             let res = checkWinner(gameBoard)
             if (res){
                 displayWinner(res)
+                curPlayer = null
             }
-            curPlayer = mark; // give turn back to human
+            else {
+                curPlayer = mark; // give turn back to human
+            }
             displayBoard();
         }
     }

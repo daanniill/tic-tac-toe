@@ -1,6 +1,8 @@
 let mark = 'X'
+// three game states: human, ai_1 (random), ai_2 (minimax)
+let state = 'ai_1'
 
-const Game = (function(mark) {
+const Game = (function(mark, state) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
     let curPlayer = mark;
     let humanMark = mark;
@@ -75,7 +77,13 @@ const Game = (function(mark) {
             {
                 if (gameBoard[i][j] === '') {
                     gameBoard[i][j] = computerMark
-                    let score = minimax(gameBoard, 0, false)
+                    let score;
+                    if (state === "ai_2") {
+                        score = minimax(gameBoard, 0, false)
+                    }
+                    else {
+                        score = random_score()
+                    }
                     gameBoard[i][j] = ''
                     if (score > bestScore) {
                         bestScore = score;
@@ -98,6 +106,13 @@ const Game = (function(mark) {
         }
     }
 
+    function random_score() {
+        let values = Object.values(scores);
+        let randomValue = values[Math.floor(Math.random() * values.length)];
+        console.log(randomValue); // could be 10, -10, or 0
+
+        return randomValue
+    }
 
     function minimax(board, depth, isMaximizing) {
         let result = checkWinner(board)
@@ -204,6 +219,6 @@ const Game = (function(mark) {
 
     return {runGame}
 
-})(mark);
+})(mark, state);
 
 Game.runGame()

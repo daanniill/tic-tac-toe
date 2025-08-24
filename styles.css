@@ -1,3 +1,15 @@
+/* GLOBAL */
+
+/* The typing effect */
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 100%;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(0, 0, 0,.75);}
+  to{border-right-color: transparent;}
+}
+
 /* BODY */
 body {
     height: 100vh;
@@ -30,4 +42,24 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 70px;
+}
+
+/* RESULTS DISPLAY  */
+
+.results {
+    margin-top: 20px;
+    text-align: center;
+    height: 10px;
+    padding: 30px;
+}
+
+.winMsg {
+    margin: 0;
+    font-size: 30px;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid black; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    animation: typewriter 1s steps(20) 0s 1 normal both,
+            blinkTextCursor 500ms steps(44) infinite normal;
 }

@@ -201,13 +201,15 @@ const Game = (function(mark, state) {
     }
 
     const displayWinner = (winner) => {
-        let winMsg = document.querySelector('.results');
+        let results = document.querySelector('.results');
+        let winMsg = document.createElement('h1')
+        winMsg.setAttribute("class", "winMsg")
         if (winner === 'tie') {
-            winMsg.innerHTML = "It's a tie!";
+            winMsg.innerHTML = "It's a tie! ";
         } else {
-            winMsg.innerHTML = `${winner} has won!`;
+            winMsg.innerHTML = `${winner} has won! `;
         }
-        document.querySelector("body").appendChild(winMsg);
+        results.appendChild(winMsg);
     }
 
     const runGame = () => {

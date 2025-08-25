@@ -2,7 +2,7 @@ let mark = 'X'
 // three game states: human, ai_1 (random), ai_2 (minimax)
 let state = 'ai_1'
 
-const Game = (function(mark, state) {
+const Game = function(mark, state) {
     let gameBoard = [...Array(3)].map(e => Array(3).fill(''));
     let curPlayer = mark;
     let humanMark = mark;
@@ -228,10 +228,33 @@ const Game = (function(mark, state) {
 
     return {runGame}
 
-})(mark, state);
+};
 
-const modal = document.querySelector("dialog")
+function gameControl() {
+    const modal = document.querySelector("dialog")
+    modal.showModal()
 
-modal.showModal()
+    const form = document.querySelector(".start_game")
+    const ai_1_btn = document.querySelector("#ai_1")
+    const ai_2_btn = document.querySelector("#ai_2")
+    let difficulty = 'ai_1'
 
-Game.runGame()
+    ai_1_btn.addEventListener('click', () => {
+        difficulty = 'ai_1'
+    })
+
+    ai_2_btn.addEventListener('click', () => {
+        difficulty = 'ai_2'
+    })
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault()
+        state = difficulty
+        console.log(state)
+        let newGame = Game(mark, state)
+        newGame.runGame()
+        modal.close()
+    })
+}
+
+gameControl()

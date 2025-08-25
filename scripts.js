@@ -1,5 +1,5 @@
 let mark = 'X'
-// three game states: human, ai_1 (random), ai_2 (minimax)
+// two game states: ai_1 (random), ai_2 (minimax)
 let state = 'ai_1'
 
 const Game = function(mark, state) {

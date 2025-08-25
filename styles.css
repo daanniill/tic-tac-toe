@@ -18,14 +18,22 @@ button {
     color: white;
     background-color: black;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 button:hover {
+    font-size: 23px;
+    transition: 0.5s;
+}
+
+button:focus {
+    outline: 0;
     color: black;
     background-color: white;
     border: 2px solid black;
     transition: 0.5s;
     cursor: pointer;
+
 }
 
 /* The typing effect */
@@ -92,6 +100,14 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: "Jersey 25", sans-serif;
+}
+
+.functions #play_again {
+    font-size: 15px;
+}
+.functions #play_again:hover {
+    font-size: 18px;
+    transition: 0.5s;
 }
 
 /* GAME BOARD */

@@ -251,10 +251,23 @@ function gameControl() {
         e.preventDefault()
         state = difficulty
         console.log(state)
+
+        document.querySelector(".board").innerHTML = ""
+        document.querySelector(".results").innerHTML = ""
+
         let newGame = Game(mark, state)
         newGame.runGame()
         modal.close()
+        form.reset();
     })
 }
 
+function playAgain() {
+    let play_again_btn = document.querySelector('#play_again')
+    play_again_btn.addEventListener('click', () => {
+        gameControl()
+    })
+}
+
+playAgain()
 gameControl()

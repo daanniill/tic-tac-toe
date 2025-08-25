@@ -9,8 +9,8 @@ It features both **Easy (Random AI)** and **Impossible (Minimax AI)** modes, alo
 
 ## 🚀 Features
 - 🎯 **Two AI Difficulties**:
-- **Easy**: Opponent picks random moves.
-- **Impossible**: AI uses the **minimax algorithm** for perfect play.
+  - **Easy**: Opponent picks random moves.
+  - **Impossible**: AI uses the **minimax algorithm** for perfect play.
 - 🖌️ **Clean UI & Animations** – smooth transitions when tiles appear.
 - 🕹️ **Play Again button** for restarting quickly.
 - 📱 Responsive and lightweight, runs in any browser.

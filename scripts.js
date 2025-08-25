@@ -31,7 +31,7 @@ const Game = (function(mark, state) {
                 // calculate a delay based on the box index
                 let delay = (i * 3 + j) * 300; // 300ms stagger per box
                 box.setAttribute("class", "box")
-                box.style.animationName = 'box'
+                box.style.animation = 'box'
                 box.style.animationDuration = '1s'
                 box.style.animationFillMode = "forwards";
                 box.style.animationDelay = `${delay}ms`;
@@ -229,5 +229,9 @@ const Game = (function(mark, state) {
     return {runGame}
 
 })(mark, state);
+
+const modal = document.querySelector("dialog")
+
+modal.showModal()
 
 Game.runGame()

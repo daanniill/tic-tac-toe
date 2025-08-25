@@ -1,4 +1,32 @@
 /* GLOBAL */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* padding + border stay inside width/height */
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 20px;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 0;
+    color: white;
+    background-color: black;
+    transition: 0.5s;
+}
+
+button:hover {
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    transition: 0.5s;
+    cursor: pointer;
+}
 
 /* The typing effect */
 @keyframes typewriter{
@@ -21,6 +49,40 @@
         opacity: 100;
     }
 }
+
+/* DIALOG */
+dialog {
+    padding: 30px 50px 30px 50px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    /* Center it */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+}
+
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+dialog::backdrop {
+    background: rgba(255, 255, 255, 0.1); /* faint translucent */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 /* BODY */
 body {

@@ -93,6 +93,21 @@ form {
 
 
 /* BODY */
+h1, h2 {
+    text-align: center;
+}
+
+h1 {
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+h2 {
+    font-weight: lighter;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -115,7 +130,7 @@ body {
     width: 450px;
     height: 450px;
     display: grid;
-    grid-template-rows: repeat(auto-fit, 150px);
+    grid-template-rows: repeat(3, 150px);
 }
 
 .row {

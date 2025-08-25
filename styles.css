@@ -124,6 +124,12 @@ body {
     font-size: 18px;
     transition: 0.5s;
 }
+.functions #play_again:focus {
+    outline: 0;
+    color: white;
+    background-color: black;
+    border: 0;
+}
 
 /* GAME BOARD */
 .board {
@@ -152,7 +158,6 @@ body {
 /* RESULTS DISPLAY  */
 
 .results {
-    margin-top: 20px;
     text-align: center;
     height: 10px;
     padding: 30px;
